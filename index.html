@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pratik Gurung</title>
+    <script type="module" src="./index.js" defer></script>
+</head>
+<body>
+    <div id="landing-section"></div>
+    <div id="about-section"></div>
+    <div id="projects-section"></div>
+
+    <script type="module" >
+        import { loadHtml } from "./index.js";
+        loadHtml("landing-section", "./sections/landing_section.html");
+        loadHtml("about-section", "./sections/about_section.html");
+        loadHtml("projects-section", "./sections/projects_section.html");
+    </script>
+    
+</body>
+</html>
