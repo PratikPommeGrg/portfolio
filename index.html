@@ -4,73 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pratik Gurung</title>
-    <script type="module" src="./index.js" defer></script>
+    <script type="module" src="./index.js" defer>    </script>
     <link rel="stylesheet" href="./style/style.css">
 </head>
 <body>
- 
-
-
-    <div id="landing-section"></div>
-    <div class="about-section-container">
-        <h2>CRAFTING THE FUTURE</h2>
-        <p class="about-intro">Every project tells a story of innovation and creativity. Each project is a learning experience shaping the way I approach challenges and innovation.</p>
-        <div class="about-details-container">
-            <div class="personal-details">
-                <div class="personal">
-                    <h5>Pratik Gurung 👨🏻‍💻</h5>
-                <h5>Phone: +977 9806755122</h5>
-                <h5>Email: pratikgurungsjg@gmail.com</h5>
-                </div>
-                <div class="vGap"></div>
-                <div class="education">
-                    <h3>Education 📚</h3>
-                    <h5>2023  Bsc Hons Computer Systems Engineering</h5>
-                </div>
-            </div>
-            <div class="experience-details">
-                <h3>Experience 💼</h3>
-                <div class="vGap"></div>
-                <div class="experience-div">
-                    <h5>2024.03 - Present</h5>
-                    <div class="company-div">
-                        <h5>Flutter Developer</h5>
-                        <h5 class="company-name">Mero Padhai</h5>
-                    </div>
-                </div>
-                <div class="experience-div">
-                    <h5>2023.12 - 2024.02</h5>
-                    <div class="company-div">
-                        <h5>Flutter Developer Intern</h5>
-                        <h5 class="company-name">Mero Padhai</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="skills-details">
-            <h3 class="h3-center">Tech Skills</h3>
-            <div class="tech-skills">
-                <div class="skill-div"></div>
-                <div class="skill-div"></div>
-                <div class="skill-div"></div>
-                <div class="skill-div"></div>
-                <div class="skill-div"></div>
-                <div class="skill-div"></div>
-                <div class="skill-div"></div>
-                <div class="skill-div"></div>
-                <div class="skill-div"></div>
-            </div>
-
-        </div>
+    <div class="wrapper-div">
+        <div id="landing-section"></div>
+        <div id="about-section"></div>
+        <div id="projects-section"></div>
     </div>
-    <!-- <div id="about-section"></div> -->
-    <!-- <div id="projects-section"></div> -->
 
     <script type="module" >
-        import { loadHtml } from "./index.js";
+        import { loadHtml, loadSkills, loadProjects } from "./index.js";
         loadHtml("landing-section", "./sections/landing_section.html");
-        // loadHtml("about-section", "./sections/about_section.html");
-        // loadHtml("projects-section", "./sections/projects_section.html");
+        loadHtml("about-section", "./sections/about_section.html").then(() => {
+            loadSkills();
+        });
+        loadHtml("projects-section", "./sections/projects_section.html").then(() => {
+            loadProjects();
+        });
     </script>
     
 </body>
