@@ -35,9 +35,29 @@ export function loadSkills(){
         return;
     }
 
+    const observerCallback = (entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                // Add 'visible' class when in view
+                entry.target.classList.add('visible');
+            } else {
+                // Remove 'visible' class when out of view
+                entry.target.classList.remove('visible');
+            }
+        });
+    };
+    
+    const observerOptions = {
+        threshold: 0.1, // Trigger when 10% of the element is visible
+    };
+    
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    
+    
+
     skills.forEach((skill) => {
         const skillDiv = document.createElement("div");
-        skillDiv.classList.add("skill-div");
+        skillDiv.classList.add("skill-div", "hidden");
 
         const skillImage = document.createElement("img");
         skillImage.classList.add("skill-image");
@@ -54,7 +74,6 @@ export function loadSkills(){
         techSkillsContainer.appendChild(skillDiv);
     });
 };
-
 
 export function loadProjects() {
     const projects = [
@@ -88,7 +107,6 @@ export function loadProjects() {
             appStoreLink: 'https://apps.apple.com/np/app/nepal-edu/id6472643598',
             image: './assets/images/nepaledu.png',
         },
-  
     ];
 
     const projectGrid = document.querySelector('.projects-grid');
@@ -98,9 +116,33 @@ export function loadProjects() {
         return;
     }
 
+    const observerCallback = (entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                // Add 'visible' class when in view
+                entry.target.classList.add('visible');
+            } else {
+                // Remove 'visible' class when out of view
+                entry.target.classList.remove('visible');
+            }
+        });
+    };
+    
+    const observerOptions = {
+        threshold: 0.1, // Trigger when 10% of the element is visible
+    };
+    
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    
+    // Observe all project cards
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach((card) => observer.observe(card));
+    
+
+    // Create and append project cards
     projects.forEach((project) => {
         const projectCard = document.createElement('div');
-        projectCard.classList.add('project-card');
+        projectCard.classList.add('project-card', 'hidden'); // Add hidden class initially
 
         const image = document.createElement('img');
         image.classList.add('project-image');
@@ -132,5 +174,92 @@ export function loadProjects() {
         projectCard.appendChild(buttonDiv);
 
         projectGrid.appendChild(projectCard);
+
+        // Observe the project card
+        observer.observe(projectCard);
     });
+}
+
+
+export function loadLottieAnimation() {
+    lottie.loadAnimation({
+        container: document.getElementById('lottie-scroll-down'), // Target the container
+        renderer: 'svg',  // Use 'svg' for rendering
+        loop: true,       // Enable looping
+        autoplay: true,   // Auto-start the animation
+        path: './assets/json/scroll-down.json' // Relative path to your JSON file
+    });
+}
+
+export function loadTextAnimations() {
+    const observerCallback = (entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visibleText"); // Add visibleText class when in view
+            } else {
+                entry.target.classList.remove("visibleText"); // Remove visibleText class when out of view
+            }
+        });
+    };
+
+    const observerOptions = {
+        threshold: 0.1, // Trigger when 10% of the element is visible
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    // Select the "Key Projects" heading and about intro paragraph
+    const textElements = document.querySelectorAll(".hiddenText");
+
+    // Observe each text element
+    textElements.forEach((element) => observer.observe(element));
+}
+
+export function loadTextAnimationsFromLeft() {
+    const observerCallback = (entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible"); 
+            } else {
+                entry.target.classList.remove("visible"); 
+            }
+        });
+    };
+
+    const observerOptions = {
+        threshold: 0.1, // Trigger when 10% of the element is visible
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    // Select the "Key Projects" heading and about intro paragraph
+    const textElements = document.querySelectorAll(".hidden");
+
+    // Observe each text element
+    textElements.forEach((element) => observer.observe(element));
+}
+
+export function loadTextAnimationsFromRight() {
+    const observerCallback = (entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visibleTextFromRight"); 
+            } else {
+                entry.target.classList.remove("visibleTextFromRight"); 
+            }
+        });
+    };
+
+    const observerOptions = {
+        threshold: 0.1, // Trigger when 10% of the element is visible
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    // Select the "Key Projects" heading and about intro paragraph
+    const textElements = document.querySelectorAll(".hiddenTextFromRight");
+
+
+    // Observe each text element
+    textElements.forEach((element) => observer.observe(element));
 }

@@ -7,22 +7,25 @@
     src: url(../assets/fonts/LemonMilk.otf);
     font-weight: 300;
 }
-@font-face {
-    font-family: 'Helvetica';
-    src: url(../assets/fonts/HelveticaNeueLight.otf);
-    font-weight: normal;
 
-}
-@font-face {
-    font-family: 'Helvetica';
-    src: url(../assets/fonts/HelveticaNeueMedium.otf);
-    font-weight: 500;
-}
 @font-face {
     font-family: 'Helvetica';
     src: url(../assets/fonts/HelveticaNeueLight.otf);
     font-weight: 200; 
 }
+
+@font-face {
+    font-family: 'Helvetica';
+    src: url(../assets/fonts/HelveticaNeueRegular.otf);
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Helvetica';
+    src: url(../assets/fonts/HelveticaNeueMedium.otf);
+    font-weight: 500;
+}
+
  @font-face {
     font-family: 'Helvetica';
     src: url(../assets/fonts/HelveticaNeueBold.otf);
@@ -32,7 +35,7 @@
 
 *{
     background-color: #F4F5F0;
-  
+  margin:0;
     padding: 0;
     box-sizing: border-box;
 }
@@ -50,10 +53,19 @@ b{
     padding: 0 100px 0 100px;
 }
 
+.landing-section-container{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .header-container{
     height: 60px;
     display: flex;
     flex-direction: row;
+    width: 100%;
     justify-content: space-between;
     align-items: flex-end;
 }
@@ -69,7 +81,7 @@ b{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 94vh;
+    height: inherit;
 }
 
 p{
@@ -78,16 +90,16 @@ p{
     font-size: 20px;
     font-weight: 200;
     margin: 0;
+    color: rgba(0, 0, 0, 0.8);
+    line-height: 130%;
 
 }
 
 .intro{
-    width: 60%;
+    width: 80%;
 }
 
-.about-intro{
-    width: 69%;
-}
+
 
 
 h2{
@@ -100,7 +112,8 @@ h2{
 h3{
     font-family: 'Helvetica';
     font-size: 24px;
-    font-weight: bold;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.8);
     margin: 0;
 }
 
@@ -114,6 +127,7 @@ h5{
     font-weight: normal;
     margin: 0;
     padding-top: 8px;
+    color: rgba(0, 0, 0, 0.8);
 }
 
 .vGap{
@@ -132,10 +146,10 @@ h5{
     font-family: 'Helvetica';
     color: white;
     background-color: black;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
-    padding: 16px 40px;
-    border-radius: 12px;
+    padding: 16px 40px 12px 40px;
+    border-radius: 32px;
     cursor: pointer;
 }
 
@@ -201,8 +215,8 @@ h5{
 }
 
 .skill-div{
-    height: 64px;
-    width: 64px;
+    height: 56px;
+    width: 56px;
     background-color: #404756;
     border-radius: 12px;
     object-fit: contain;
@@ -218,6 +232,7 @@ h5{
     font-weight: 100;
     padding-top: 8px;
     text-align: center;
+    color: rgba(0, 0, 0, 0.8);
 }
 
 
@@ -234,7 +249,8 @@ h5{
 }
 
 .company-name{
-    color: #939393;
+    color: rgba(0, 0, 0, 0.55);
+    font-size: 18px;
 }
 
 .projects-section-container {
@@ -278,7 +294,7 @@ h5{
 .project-name {
     font-family: 'Helvetica';
     font-size: 20px;
-    font-weight: bold;
+    font-weight: 500;
     margin: 24px 0 16px 16px;
     background-color: transparent;
 }
@@ -293,10 +309,10 @@ h5{
 
 .store-buttons a {
     font-family: 'Helvetica';
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.8);;
     color: white;
     text-decoration: none;
-    padding: 8px 16px;
+    padding: 13px 16px 10px 16px;
     border-radius: 8px;
     font-size: 14px;
     font-weight: 400;
@@ -307,3 +323,150 @@ h5{
     font-family: 'Helvetica';
     background-color: grey;
 }
+
+
+
+.lottie-container {
+    width: 200px;
+    height: 110px;
+}
+
+
+.hidden {
+    opacity: 0;
+    transform: translateX(-50px); /* Slide in from the left */
+    transition: all 0.3s ease-in-out;
+}
+
+.visible {
+    opacity: 1;
+    transform: translateX(0); /* Restore position */
+}
+
+.hiddenText {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.3s ease-in-out; /* Smooth transition */
+}
+
+
+.visibleText {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+.hiddenTextFromRight{
+    opacity: 0;
+    transform: translateX(50px); /* Slide in from the right */
+    transition: all 0.3s ease-in-out;
+}
+
+.visibleTextFromRight {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.footerText{
+    text-align: center;
+background-color: transparent;
+    font-size: 16px;
+    font-weight: 500;
+    color: #b6c6d0;
+    
+}
+
+.footer{
+    background-color: #192732;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding:  40px 0;
+    
+
+}
+
+.sns{
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    background-color: transparent;
+    margin-bottom: 32px;
+
+}
+
+.sns-icon{
+    width: 32px;
+    height: 32px;
+    background-color: red;
+    border-radius: 12px;
+}
+
+/*! locomotive-scroll v4.1.3 | MIT License | https://github.com/locomotivemtl/locomotive-scroll */
+html.has-scroll-smooth {
+    overflow: hidden; }
+  
+  html.has-scroll-dragging {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; }
+  
+  .has-scroll-smooth body {
+    overflow: hidden; }
+  
+  .has-scroll-smooth [data-scroll-container] {
+    min-height: 100vh; }
+  
+  [data-scroll-direction="horizontal"] [data-scroll-container] {
+    height: 100vh;
+    display: inline-block;
+    white-space: nowrap; }
+  
+  [data-scroll-direction="horizontal"] [data-scroll-section] {
+    display: inline-block;
+    vertical-align: top;
+    white-space: nowrap;
+    height: 100%; }
+  
+  .c-scrollbar {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 11px;
+    height: 100%;
+    transform-origin: center right;
+    transition: transform 0.3s, opacity 0.3s;
+    opacity: 0; }
+    .c-scrollbar:hover {
+      transform: scaleX(1.45); }
+    .c-scrollbar:hover, .has-scroll-scrolling .c-scrollbar, .has-scroll-dragging .c-scrollbar {
+      opacity: 1; }
+    [data-scroll-direction="horizontal"] .c-scrollbar {
+      width: 100%;
+      height: 10px;
+      top: auto;
+      bottom: 0;
+      transform: scaleY(1); }
+      [data-scroll-direction="horizontal"] .c-scrollbar:hover {
+        transform: scaleY(1.3); }
+  
+  .c-scrollbar_thumb {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: black;
+    opacity: 0.5;
+    width: 7px;
+    border-radius: 10px;
+    margin: 2px;
+    cursor: -webkit-grab;
+    cursor: grab; }
+    .has-scroll-dragging .c-scrollbar_thumb {
+      cursor: -webkit-grabbing;
+      cursor: grabbing; }
+    [data-scroll-direction="horizontal"] .c-scrollbar_thumb {
+      right: auto;
+      bottom: 0; }

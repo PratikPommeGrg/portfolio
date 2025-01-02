@@ -5,25 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pratik Gurung</title>
     <script type="module" src="./index.js" defer>    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
     <link rel="stylesheet" href="./style/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="./locomotive.js"></script>
+   
+
+  
 </head>
 <body>
     <div class="wrapper-div">
         <div id="landing-section"></div>
-        <div id="about-section"></div>
         <div id="projects-section"></div>
+        <div id="about-section"></div>
+    </div>
+    <div class="footer">
+        <div class="sns">
+            <div class="sns-icon"></div>
+            <div class="sns-icon"></div>
+            <div class="sns-icon"></div>
+            <div class="sns-icon"></div>
+        </div>
+        <p class="footerText">Copyright &copy; Pratik Gurung</p>
     </div>
 
     <script type="module" >
-        import { loadHtml, loadSkills, loadProjects } from "./index.js";
-        loadHtml("landing-section", "./sections/landing_section.html");
+        import { loadHtml, loadSkills, loadProjects, loadLottieAnimation, loadTextAnimations, loadTextAnimationsFromLeft, loadTextAnimationsFromRight } from "./index.js";
+        loadHtml("landing-section", "./sections/landing_section.html").then(() => {
+            loadLottieAnimation();
+        });
         loadHtml("about-section", "./sections/about_section.html").then(() => {
             loadSkills();
+            loadTextAnimationsFromLeft();
+            loadTextAnimationsFromRight();
         });
         loadHtml("projects-section", "./sections/projects_section.html").then(() => {
+            loadTextAnimations();
             loadProjects();
         });
     </script>
+ 
+    
     
 </body>
 </html>
