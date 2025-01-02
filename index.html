@@ -13,17 +13,25 @@
 
 </head>
 <body>
+    <!-- Add this in your HTML body -->
+<div class="meteor"></div>
+
     <div class="wrapper-div">
         <div id="landing-section"></div>
-        <div id="projects-section"></div>
         <div id="about-section"></div>
+        <div id="projects-section"></div>
     </div>
     <div class="footer">
+        <p class="footerText">Connect with me :</p>
         <div class="sns">
-            <div class="sns-icon"></div>
-            <div class="sns-icon"></div>
-            <div class="sns-icon"></div>
-            <div class="sns-icon"></div>
+            <div class="hDivider"></div>
+            <a href="https://linkedin.com/in/pratik-grg" target="_blank">
+                <img class="sns-icon" src='./assets/images/linkedin.png' alt="linkedin">
+            </a>
+            <a href="https://github.com/PratikPommeGrg" target="_blank">
+                <img class="sns-icon" src='./assets/images/github.png' alt="github">
+            </a>
+            <div class="hDivider"></div>
         </div>
         <p class="footerText">Copyright &copy; Pratik Gurung</p>
     </div>
@@ -32,11 +40,10 @@
         document.addEventListener("DOMContentLoaded", () => {
             // Initialize Lenis
             const lenis = new Lenis({
-                duration: 1.2, // Smooth scroll duration
+                duration: 1.5, // Smooth scroll duration
                 easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom easing
-                direction: 'vertical', // Can be 'vertical' or 'horizontal'
                 smooth: true, // Enable smooth scrolling
-                mouseMultiplier: 1, // Speed of mouse scrolling
+
             });
     
             // Update scroll animations
@@ -65,6 +72,7 @@
         });
     </script>
  
+
     
     
 </body>

@@ -42,6 +42,8 @@
 
 a{
     color: black;
+    text-decoration: none;
+    background-color: transparent;
 }
 
 b{
@@ -150,17 +152,19 @@ h5{
 .view-cv-btn{
     font-family: 'Helvetica';
     color: white;
-    background-color: black;
+    background-color: #192732;
     font-size: 18px;
     font-weight: 500;
     padding: 16px 40px 12px 40px;
     border-radius: 32px;
     cursor: pointer;
+
 }
 
-.view-cv-btn > a {
-    text-decoration: none;
+.view-cv-btn:hover{
+    background-color: cadetblue;
 }
+
 
 .about-section-container{
     height: 100vh;
@@ -169,14 +173,14 @@ h5{
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    margin: 0 200px 0 200px;
+    margin: 0 150px 0 150px;
 
 }
 
 .projects-section-container{
     display: flex;
     flex-direction: column;
-    margin: 0 200px 0 200px;
+    margin: 0 150px 0 150px;
     align-items: center;
 
 }
@@ -274,7 +278,8 @@ h5{
 }
 
 .project-card {
-    background-color: #fff;
+    background-color: #f3f8fa;
+    ;
     border-radius: 12px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -314,7 +319,7 @@ h5{
 
 .store-buttons a {
     font-family: 'Helvetica';
-    background-color: rgba(0, 0, 0, 0.8);;
+    background-color: #192732;
     color: white;
     text-decoration: none;
     padding: 13px 16px 10px 16px;
@@ -326,7 +331,7 @@ h5{
 
 .store-buttons a:hover {
     font-family: 'Helvetica';
-    background-color: grey;
+    background-color: cadetblue;
 }
 
 
@@ -396,16 +401,46 @@ background-color: transparent;
 .sns{
     display: flex;
     flex-direction: row;
-    gap: 24px;
+    align-items: end;
+    gap: 16px;
     background-color: transparent;
     margin-bottom: 32px;
+    color: #b6c6d0;
+    width: 100%;
+    padding: 0 150px;
+    
 
 }
 
 .sns-icon{
     width: 32px;
     height: 32px;
-    background-color: red;
-    border-radius: 12px;
+    background-color: transparent;
+
+
+}
+
+.hDivider{
+    width: inherit;
+    height: 2px;
+    border-radius: 999px;
+    background-color: #b6c6d0;
+    margin: 32px 0;
+}
+
+
+/* Base scrollbar styles */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: burlywood ;
+}
+
+/* Custom scrollbar thumb */
+::-webkit-scrollbar-thumb {
+    background: cadetblue; 
+    transition: all 0.2s ease-in-out;
 }
 
