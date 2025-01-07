@@ -40,10 +40,12 @@ export function loadSkills(){
             if (entry.isIntersecting) {
                 // Add 'visible' class when in view
                 entry.target.classList.add('visible');
-            } else {
-                // Remove 'visible' class when out of view
-                entry.target.classList.remove('visible');
+                observer.unobserve(entry.target);
             }
+            //  else {
+            //     // Remove 'visible' class when out of view
+            //     entry.target.classList.remove('visible');
+            // }
         });
     };
     
@@ -81,7 +83,7 @@ export function loadProjects() {
             name: 'eNirman',
             playStoreLink: 'https://play.google.com/store/apps/details?id=com.theyetilabs.enirman&pcampaignid=web_share',
             appStoreLink: 'https://apps.apple.com/np/app/enirman/id6475091217',
-            image: './assets/images/eNirman.png',
+            image: './assets/images/enirman.png',
         },
         {
             name: 'eNirman Site Engineer',
@@ -121,10 +123,12 @@ export function loadProjects() {
             if (entry.isIntersecting) {
                 // Add 'visible' class when in view
                 entry.target.classList.add('visible');
-            } else {
-                // Remove 'visible' class when out of view
-                entry.target.classList.remove('visible');
-            }
+                observer.unobserve(entry.target);
+            } 
+            // else {
+            //     // Remove 'visible' class when out of view
+            //     entry.target.classList.remove('visible');
+            // }
         });
     };
     
@@ -196,9 +200,11 @@ export function loadTextAnimations() {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
                 entry.target.classList.add("visibleText"); // Add visibleText class when in view
-            } else {
-                entry.target.classList.remove("visibleText"); // Remove visibleText class when out of view
-            }
+                observer.unobserve(entry.target);
+            } 
+            // else {
+            //     entry.target.classList.remove("visibleText"); // Remove visibleText class when out of view
+            // }
         });
     };
 
@@ -220,9 +226,11 @@ export function loadTextAnimationsFromLeft() {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
                 entry.target.classList.add("visible"); 
-            } else {
-                entry.target.classList.remove("visible"); 
-            }
+                observer.unobserve(entry.target);
+            } 
+            // else {
+            //     entry.target.classList.remove("visible"); 
+            // }
         });
     };
 
@@ -244,9 +252,11 @@ export function loadTextAnimationsFromRight() {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
                 entry.target.classList.add("visibleTextFromRight"); 
-            } else {
-                entry.target.classList.remove("visibleTextFromRight"); 
-            }
+                observer.unobserve(entry.target);
+            } 
+            // else {
+            //     entry.target.classList.remove("visibleTextFromRight"); 
+            // }
         });
     };
 
