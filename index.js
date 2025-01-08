@@ -20,9 +20,9 @@ export function loadSkills(){
     const skills = [
         { name: "Flutter", icon: "./assets/icons/flutter.png" },
         { name: "Dart", icon: "./assets/icons/dart.png" },
-        { name: "React Native", icon: "./assets/icons/react-native.png" },
+        // { name: "React Native", icon: "./assets/icons/react-native.png" },
         { name: "Javascript", icon: "./assets/icons/javascript.png" },
-        { name: "Spring Boot", icon: "./assets/icons/spring-boot.png" },
+        // { name: "Spring Boot", icon: "./assets/icons/spring-boot.png" },
         { name: "Java", icon: "./assets/icons/java.png" },
         { name: "PostgreSQL", icon: "./assets/icons/postgresql.png" },
         { name: "Firebase", icon: "./assets/icons/firebase.png" },
