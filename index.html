@@ -1,86 +1,453 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pratik Gurung</title>
-    <link rel="icon" href="./assets/icons/icon.jpeg" type="image/icon type">
-    <script type="module" src="./index.js" defer>    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
-    <link rel="stylesheet" href="./style/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <style type="text/css">
-        @keyframes bounce {
-            0%,
-            20%,
-            50%,
-            80%,
-            100% {
-                transform: translateY(0);
-            }
-
-            40% {
-                transform: translateY(-30px);
-            }
-
-            60% {
-                transform: translateY(-15px);
-            }
-        }
-
-        .scroll-bounce {
-            animation: bounce 2s infinite;
-        }
-
-        .container {
-            height: 2000px;
-            background-color: #f2f2f2;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pratik Gurung</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Add this in your HTML body -->
-<div class="meteor"></div>
+<div class="grain"></div>
 
-    <div class="wrapper-div">
-        <div id="landing-section"></div>
-        <div id="about-section"></div>
-        <div id="projects-section"></div>
+<!-- New Blurry Overlay -->
+<div class="navbar-blur-overlay"></div>
+
+<!-- Floating Navigation -->
+<nav class="floating-nav">
+  <div class="nav-blob"></div>
+  <ul>
+    <li><a href="#hero" class="nav-link active">Home</a></li>
+    <li><a href="#about" class="nav-link">About</a></li>
+    <li><a href="#skills" class="nav-link">Skills</a></li>
+    <li><a href="#work" class="nav-link">Work</a></li>
+    <li><a href="#contact" class="nav-link">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Hero Section -->
+<section id="hero" class="hero">
+  <div class="hero-bg">
+    <div class="floating-shape shape-1"></div>
+    <div class="floating-shape shape-2"></div>
+    <div class="floating-shape shape-3"></div>
+  </div>
+  
+  <div class="container">
+    <div class="hero-content">
+      <div class="greeting">
+        <span class="wave">👋</span>
+        <span class="greeting-text">Hello, I'm</span>
+      </div>
+      
+      <h1 class="hero-title">
+        <span class="name-line">Pratik Gurung</span>
+        <span class="title-line">Software Developer</span>
+      </h1>
+      
+      <p class="hero-description">
+        I craft beautiful mobile experiences that users love. 
+        <span class="highlight">2+ years</span> of turning ideas into delightful apps.
+      </p>
+      
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="scrollToSection('work')">
+          <span>View My Work</span>
+          <div class="btn-ripple"></div>
+        </button>
+        
+        <button class="btn-secondary" onclick="scrollToSection('contact')">
+          <span>Let's Chat</span>
+        </button>
+      </div>
     </div>
-    <div class="footer">
-        <p class="footerText">Connect with me :</p>
-        <div class="sns">
-            <div class="hDivider"></div>
-            <a href="https://linkedin.com/in/pratik-grg" target="_blank">
-                <img class="sns-icon" src='./assets/images/linkedin.png' alt="linkedin">
-            </a>
-            <a href="https://github.com/PratikPommeGrg" target="_blank">
-                <img class="sns-icon" src='./assets/images/github.png' alt="github">
-            </a>
-            <div class="hDivider"></div>
+    
+    <div class="hero-visual">
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <!-- App Demo Home Screen -->
+          <div class="app-demo app-demo-home-screen active">
+          <!-- Music Player Widget -->
+          <div class="music-widget">
+            <div class="widget-header">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-music"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+              <div class="widget-title">Playlist</div>
+            </div>
+            <div class="album-art-small" id="albumArt"></div>
+            <div class="song-info-small">
+              <div class="song-title-small" id="songTitle"></div>
+              <div class="artist-name-small" id="artistName"></div>
+            </div>
+            <div class="progress-bar-music-small">
+              <div class="progress-fill" id="musicProgressBar"></div>
+            </div>
+            <div class="controls-small">
+              <button class="control-button-small" id="prevButton" aria-label="Previous song">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-skip-back"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" x2="5" y1="19" y2="5"/></svg>
+              </button>
+              <button class="control-button-small large" id="playPauseButton" aria-label="Play/Pause">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </button>
+              <button class="control-button-small" id="nextButton" aria-label="Next song">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-skip-forward"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" x2="19" y1="5" y2="19"/></svg>
+              </button>
+            </div>
+          </div>
+            <!-- CV Section (Button Widget) -->
+            <button class="cv-home-section btn-view-cv" id="viewCvButton">
+              <div class="cv-section-header">
+                <div class="cv-section-title">View My CV</div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+              </div>
+            </button>
+          </div>
         </div>
-        <p class="footerText">Copyright &copy; Pratik Gurung</p>
+        <div class="vibe-text">
+            <span>"Vibe with me"</span>
+            <span class="emoji">✌🏻</span>
+          </div>
     </div>
+</section>
 
-    <script type="module" >
-        import { loadHtml, loadSkills, loadProjects, loadLottieAnimation, loadTextAnimations, loadTextAnimationsFromLeft, loadTextAnimationsFromRight } from "./index.js";
-        loadHtml("landing-section", "./sections/landing_section.html").then(() => {
-            loadLottieAnimation();
-        });
-        loadHtml("about-section", "./sections/about_section.html").then(() => {
-            loadSkills();
-            loadTextAnimationsFromLeft();
-            loadTextAnimationsFromRight();
-        });
-        loadHtml("projects-section", "./sections/projects_section.html").then(() => {
-            loadTextAnimations();
-            loadProjects();
-        });
-    </script>
- 
+<!-- About Section -->
+<section id="about" class="about">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2 class="section-title">About Me</h2>
+    </div>
+    
+    <div class="about-content">
+      <div class="about-text">
+        <p >
+          I'm a passionate <b>Mobile App Developer</b> specializing in creating seamless, high-performance Mobile Applications with <b>Flutter</b>.
+        </p>
+        
+        <p>
+          Over the past 2 years, I've been crafting mobile experiences that not only 
+          look beautiful but also solve real problems. I love the challenge of taking 
+          complex ideas and turning them into simple, intuitive interfaces.
+        </p>
+        
+        <p>
+         My approach to building mobile experiences is driven by a desire for clarity, performance, and delivering applications designed to perfectly serve their purpose.
+        </p>
+        
+        <div class="skills-preview">
+          <div class="skill-tag">Flutter</div>
+          <div class="skill-tag">Dart</div>
+          <div class="skill-tag">Firebase</div>
+          <div class="skill-tag">UI/UX</div>
+          <div class="skill-tag">REST APIs</div>
+        </div>
+      </div>
+      
+      <div class="about-visual">
+        <div class="profile-card animated-on-scroll">
+          <div class="profile-image">
+            <div class="image-placeholder">
+                <img src="/images/profile.jpg" alt="Pratik Gurung" class="profile-photo">
+            </div>
+          </div>
+          <div class="profile-info">
+            <h3>Quick Facts</h3>
+            <ul>
+              <li>📱 2+ years Flutter experience</li>
+              <li>🎨 UI/UX enthusiast</li>
+              <li>🚀 10+ apps published</li>
+              <li>🎧 Coding + vibing with music</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- Skills Section -->
+<section id="skills" class="skills">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2 class="section-title">My Toolkit</h2>
+      <p class="section-subtitle">Technologies and tools I'm proficient with.</p>
+    </div>
     
+    <div class="skills-grid">
+      <div class="skill-item animated-on-scroll">
+        <h3>Languages</h3>
+        <ul>
+          <li>
+            <img src="/images/dart.png" alt="Dart logo" class="skill-logo">
+            <span>Dart</span>
+          </li>
+          <li>
+            <img src="/images/swift.png" alt="Swift logo" class="skill-logo">
+            <span>Swift</span>
+          </li>
+          <li>
+            <img src="/images/python.png" alt="Python logo" class="skill-logo">
+            <span>Python</span>
+          </li>
+        </ul>
+      </div>
+      <div class="skill-item animated-on-scroll">
+        <h3>Frameworks & Libraries</h3>
+        <ul>
+          <li>
+            <img src="/images/flutter.png" alt="Flutter logo" class="skill-logo">
+            <span>Flutter</span>
+          </li>
+          <li>
+            <img src="/images/swiftui.png" alt="SwiftUI logo logo" class="skill-logo">
+            <span>SwiftUI</span>
+          </li>
+          <li>
+            <img src="/images/fastapi.png" alt="FastAPI logo" class="skill-logo">
+            <span>FastAPI</span>
+          </li>
+          <li>
+            <img src="/images/bloc.png" alt="Bloc logo" class="skill-logo">
+            <span>Bloc</span>
+          </li>
+          <li>
+            <img src="/images/riverpod.png" alt="Riverpod logo" class="skill-logo">
+            <span>Riverpod</span>
+          </li>
+        </ul>
+      </div>
+      <div class="skill-item animated-on-scroll">
+        <h3>Databases & Backend</h3>
+        <ul>
+          <li>
+            <img src="/images/firebase.png" alt="Firebase logo" class="skill-logo">
+            <span>Firebase</span>
+          </li>
+          <li>
+            <img src="/images/postgresql.png" alt="PostgreSQL logo" class="skill-logo">
+            <span>PostgreSQL</span>
+          </li>
+        </ul>
+      </div>
+      <div class="skill-item animated-on-scroll">
+        <h3>Tools & Version Control</h3>
+        <ul>
+          <li>
+            <img src="/images/git.png" alt="Git logo" class="skill-logo">
+            <span>Git</span>
+          </li>
+          <li>
+            <img src="/images/vscode.png" alt="VS Code logo" class="skill-logo">
+            <span>VS Code</span>
+          </li>
+          <li>
+            <img src="/images/xcode.png" alt="Xcode logo" class="skill-logo">
+            <span>Xcode</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Work Section -->
+<section id="work" class="work">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2 class="section-title">My Work</h2>
+      <p class="section-subtitle">Every project tells a story of innovation and creativity. Each project is a learning experience shaping the way I approach challenges and innovation</p>
+    </div>
     
+    <div class="projects-grid">
+      <article class="project-card animated-on-scroll" data-project="1">
+        <div class="project-image">
+          <div class="phone-preview">
+            <div class="phone-screen-small">
+              <div class="app-preview app-1"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-content">
+          <div class="project-meta">
+            <span class="project-type">E-commerce App</span>
+            <span class="project-year">2024</span>
+          </div>
+          
+          <h3 class="project-title">ShopEasy</h3>
+          
+          <p class="project-description">
+            A modern e-commerce app with smooth animations, intuitive navigation, 
+            and seamless checkout experience.
+          </p>
+          
+          <div class="project-tech">
+            <span class="tech-tag">Flutter</span>
+            <span class="tech-tag">Firebase</span>
+            <span class="tech-tag">Stripe</span>
+          </div>
+          
+          <div class="project-links">
+            <a href="#" class="project-link">
+              <span>View Case Study</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </article>
+      
+      <article class="project-card animated-on-scroll" data-project="2">
+        <div class="project-image">
+          <div class="phone-preview">
+            <div class="phone-screen-small">
+              <div class="app-preview app-2"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-content">
+          <div class="project-meta">
+            <span class="project-type">Productivity App</span>
+            <span class="project-year">2023</span>
+          </div>
+          
+          <h3 class="project-title">FocusFlow</h3>
+          
+          <p class="project-description">
+            A minimalist productivity app that helps users stay focused with 
+            beautiful timers and progress tracking.
+          </p>
+          
+          <div class="project-tech">
+            <span class="tech-tag">Flutter</span>
+            <span class="tech-tag">SQLite</span>
+            <span class="tech-tag">Animations</span>
+          </div>
+          
+          <div class="project-links">
+            <a href="#" class="project-link">
+              <span>View Case Study</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </article>
+      
+      <article class="project-card animated-on-scroll" data-project="3">
+        <div class="project-image">
+          <div class="phone-preview">
+            <div class="phone-screen-small">
+              <div class="app-preview app-3"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-content">
+          <div class="project-meta">
+            <span class="project-type">Social App</span>
+            <span class="project-year">2023</span>
+          </div>
+          
+          <h3 class="project-title">ConnectLocal</h3>
+          
+          <p class="project-description">
+            A community app that connects neighbors and local businesses with 
+            real-time messaging and event sharing.
+          </p>
+          
+          <div class="project-tech">
+            <span class="tech-tag">Flutter</span>
+            <span class="tech-tag">WebSocket</span>
+            <span class="tech-tag">Maps API</span>
+          </div>
+          
+          <div class="project-links">
+            <a href="#" class="project-link">
+              <span>View Case Study</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="contact">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <h2 class="section-title">Let's Create Something Amazing</h2>
+      <p class="section-subtitle">Have an app idea? Let's bring it to life together.</p>
+    </div>
+    
+    <div class="contact-content">
+      <div class="contact-info">
+        <div class="contact-card animated-on-scroll">
+          <div class="contact-icon">📧</div>
+          <h3>Email Me</h3>
+          <a href="mailto:pratikgurungsjg@gmail.com" class="contact-link">pratikgurungsjg@gmail.com</a>
+        </div>
+        
+        <div class="contact-card animated-on-scroll">
+          <div class="contact-icon">💼</div>
+          <h3>LinkedIn</h3>
+          <a href="#" class="contact-link">Connect with me</a>
+        </div>
+        
+        <div class="contact-card animated-on-scroll">
+          <div class="contact-icon">🐙</div>
+          <h3>GitHub</h3>
+          <a href="#" class="contact-link">Check my code</a>
+        </div>
+      </div>
+      
+      <div class="contact-form-container animated-on-scroll">
+        <form class="contact-form">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="project">Tell me about your project</label>
+            <textarea id="project" name="project" rows="5" placeholder="I have this amazing app idea..." required></textarea>
+          </div>
+          
+          <button type="submit" class="btn-primary">
+            <span>Send Message</span>
+            <div class="btn-ripple"></div>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2025 Pratik Gurung. Crafted with Love and Vibe</p>
+  </div>
+</footer>
+
+<!-- Audio Player Element -->
+<audio id="audioPlayer" preload="auto"></audio>
+<script src="script.js" type="module"></script>
 </body>
 </html>

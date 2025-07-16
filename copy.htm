@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Name - Flutter Developer</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="grain"></div>
+
+<!-- Floating Navigation -->
+<nav class="floating-nav">
+  <div class="nav-blob"></div>
+  <ul>
+    <li><a href="#hero" class="nav-link active">Home</a></li>
+    <li><a href="#about" class="nav-link">About</a></li>
+    <li><a href="#skills" class="nav-link">Skills</a></li>
+    <li><a href="#work" class="nav-link">Work</a></li>
+    <li><a href="#contact" class="nav-link">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Hero Section -->
+<section id="hero" class="hero">
+  <div class="hero-bg">
+    <div class="floating-shape shape-1"></div>
+    <div class="floating-shape shape-2"></div>
+    <div class="floating-shape shape-3"></div>
+  </div>
+  
+  <div class="container">
+    <div class="hero-content">
+      <div class="greeting">
+        <span class="wave">👋</span>
+        <span class="greeting-text">Hello, I'm</span>
+      </div>
+      
+      <h1 class="hero-title">
+        <span class="name-line">Your Name</span>
+        <span class="title-line">Flutter Developer</span>
+      </h1>
+      
+      <p class="hero-description">
+        I craft beautiful mobile experiences that users love. 
+        <span class="highlight">2 years</span> of turning ideas into delightful apps.
+      </p>
+      
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="scrollToSection('work')">
+          <span>View My Work</span>
+          <div class="btn-ripple"></div>
+        </button>
+        
+        <button class="btn-secondary" onclick="scrollToSection('contact')">
+          <span>Let's Chat</span>
+        </button>
+      </div>
+    </div>
+    
+    <div class="hero-visual">
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <div class="app-demo">
+            <div class="demo-header"></div>
+            <div class="demo-content">
+              <div class="demo-card"></div>
+              <div class="demo-card"></div>
+              <div class="demo-card"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="about">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2 class="section-title">About Me</h2>
+    </div>
+    
+    <div class="about-content">
+      <div class="about-text">
+        <p class="lead">
+          I'm a passionate Flutter developer who believes that great mobile apps 
+          should feel like magic in your hands.
+        </p>
+        
+        <p>
+          Over the past 2 years, I've been crafting mobile experiences that not only 
+          look beautiful but also solve real problems. I love the challenge of taking 
+          complex ideas and turning them into simple, intuitive interfaces.
+        </p>
+        
+        <p>
+          When I'm not coding, you'll find me exploring new design trends, 
+          contributing to open source, or probably trying to perfect that one 
+          animation that's been bugging me all day.
+        </p>
+        
+        <div class="skills-preview">
+          <div class="skill-tag">Flutter</div>
+          <div class="skill-tag">Dart</div>
+          <div class="skill-tag">Firebase</div>
+          <div class="skill-tag">UI/UX</div>
+          <div class="skill-tag">REST APIs</div>
+        </div>
+      </div>
+      
+      <div class="about-visual">
+        <div class="profile-card">
+          <div class="profile-image">
+            <div class="image-placeholder"></div>
+          </div>
+          <div class="profile-info">
+            <h3>Quick Facts</h3>
+            <ul>
+              <li>📱 2+ years Flutter experience</li>
+              <li>🎨 UI/UX enthusiast</li>
+              <li>🚀 5+ apps published</li>
+              <li>☕ Coffee-powered coding</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Skills Section -->
+<section id="skills" class="skills">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2 class="section-title">My Toolkit</h2>
+      <p class="section-subtitle">Technologies and tools I'm proficient with.</p>
+    </div>
+    
+    <div class="skills-grid">
+      <div class="skill-item">
+        <h3>Languages</h3>
+        <ul>
+          <li>
+            <img src="/images/dart.png" alt="Dart logo" class="skill-logo">
+            <span>Dart</span>
+          </li>
+          <li>
+            <img src="/images/swift.png" alt="Swift logo" class="skill-logo">
+            <span>Swift</span>
+          </li>
+          <li>
+            <img src="images/python.png" alt="Python logo" class="skill-logo">
+            <span>Python</span>
+          </li>
+        </ul>
+      </div>
+      <div class="skill-item">
+        <h3>Frameworks & Libraries</h3>
+        <ul>
+          <li>
+            <img src="/images/flutter.png" alt="Flutter logo" class="skill-logo">
+            <span>Flutter</span>
+          </li>
+          <li>
+            <img src="/images/fastapi.png" alt="FastAPI logo" class="skill-logo">
+            <span>FastAPI</span>
+          </li>
+          <li>
+            <img src="/images/swiftui.png" alt="SwiftUI logo" class="skill-logo">
+            <span>Swift UI</span>
+          </li>
+          <li>
+            <img src="/images/bloc.png" alt="Bloc logo" class="skill-logo">
+            <span>Bloc</span>
+          </li>
+          <li>
+            <img src="/images/riverpod.png" alt="Riverpod logo" class="skill-logo">
+            <span>Riverpod</span>
+          </li>
+        </ul>
+      </div>
+      <div class="skill-item">
+        <h3>Databases & Backend</h3>
+        <ul>
+          <li>
+            <img src="/images/firebase.png" alt="Firebase logo" class="skill-logo">
+            <span>Firebase</span>
+          </li>
+          <li>
+            <img src="/images/postgresql.png" alt="PostgreSQL logo" class="skill-logo">
+            <span>PostgreSQL</span>
+          </li>
+        </ul>
+      </div>
+      <div class="skill-item">
+        <h3>Tools & Version Control</h3>
+        <ul>
+          <li>
+            <img src="/placeholder.svg?height=24&width=24" alt="Git logo" class="skill-logo">
+            <span>Git</span>
+          </li>
+          <li>
+            <img src="/placeholder.svg?height=24&width=24" alt="VS Code logo" class="skill-logo">
+            <span>VS Code</span>
+          </li>
+          <li>
+            <img src="/placeholder.svg?height=24&width=24" alt="Xcode logo" class="skill-logo">
+            <span>Xcode</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Work Section -->
+<section id="work" class="work">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2 class="section-title">My Work</h2>
+      <p class="section-subtitle">Apps I've brought to life</p>
+    </div>
+    
+    <div class="projects-grid">
+      <article class="project-card" data-project="1">
+        <div class="project-image">
+          <div class="phone-preview">
+            <div class="phone-screen-small">
+              <div class="app-preview app-1"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-content">
+          <div class="project-meta">
+            <span class="project-type">E-commerce App</span>
+            <span class="project-year">2024</span>
+          </div>
+          
+          <h3 class="project-title">ShopEasy</h3>
+          
+          <p class="project-description">
+            A modern e-commerce app with smooth animations, intuitive navigation, 
+            and seamless checkout experience.
+          </p>
+          
+          <div class="project-tech">
+            <span class="tech-tag">Flutter</span>
+            <span class="tech-tag">Firebase</span>
+            <span class="tech-tag">Stripe</span>
+          </div>
+          
+          <div class="project-links">
+            <a href="#" class="project-link">
+              <span>View Case Study</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </article>
+      
+      <article class="project-card" data-project="2">
+        <div class="project-image">
+          <div class="phone-preview">
+            <div class="phone-screen-small">
+              <div class="app-preview app-2"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-content">
+          <div class="project-meta">
+            <span class="project-type">Productivity App</span>
+            <span class="project-year">2023</span>
+          </div>
+          
+          <h3 class="project-title">FocusFlow</h3>
+          
+          <p class="project-description">
+            A minimalist productivity app that helps users stay focused with 
+            beautiful timers and progress tracking.
+          </p>
+          
+          <div class="project-tech">
+            <span class="tech-tag">Flutter</span>
+            <span class="tech-tag">SQLite</span>
+            <span class="tech-tag">Animations</span>
+          </div>
+          
+          <div class="project-links">
+            <a href="#" class="project-link">
+              <span>View Case Study</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </article>
+      
+      <article class="project-card" data-project="3">
+        <div class="project-image">
+          <div class="phone-preview">
+            <div class="phone-screen-small">
+              <div class="app-preview app-3"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-content">
+          <div class="project-meta">
+            <span class="project-type">Social App</span>
+            <span class="project-year">2023</span>
+          </div>
+          
+          <h3 class="project-title">ConnectLocal</h3>
+          
+          <p class="project-description">
+            A community app that connects neighbors and local businesses with 
+            real-time messaging and event sharing.
+          </p>
+          
+          <div class="project-tech">
+            <span class="tech-tag">Flutter</span>
+            <span class="tech-tag">WebSocket</span>
+            <span class="tech-tag">Maps API</span>
+          </div>
+          
+          <div class="project-links">
+            <a href="#" class="project-link">
+              <span>View Case Study</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="contact">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <h2 class="section-title">Let's Create Something Amazing</h2>
+      <p class="section-subtitle">Have an app idea? Let's bring it to life together.</p>
+    </div>
+    
+    <div class="contact-content">
+      <div class="contact-info">
+        <div class="contact-card">
+          <div class="contact-icon">📧</div>
+          <h3>Email Me</h3>
+          <a href="mailto:hello@yourname.com" class="contact-link">hello@yourname.com</a>
+        </div>
+        
+        <div class="contact-card">
+          <div class="contact-icon">💼</div>
+          <h3>LinkedIn</h3>
+          <a href="#" class="contact-link">Connect with me</a>
+        </div>
+        
+        <div class="contact-card">
+          <div class="contact-icon">🐙</div>
+          <h3>GitHub</h3>
+          <a href="#" class="contact-link">Check my code</a>
+        </div>
+      </div>
+      
+      <div class="contact-form-container">
+        <form class="contact-form">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="project">Tell me about your project</label>
+            <textarea id="project" name="project" rows="5" placeholder="I have this amazing app idea..." required></textarea>
+          </div>
+          
+          <button type="submit" class="btn-primary">
+            <span>Send Message</span>
+            <div class="btn-ripple"></div>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2024 Your Name. Crafted with Flutter and lots of ☕</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
