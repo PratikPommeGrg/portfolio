@@ -255,7 +255,7 @@ function initPhoneMockupInteractivity() {
   if (viewCvButton) {
     viewCvButton.addEventListener("click", () => {
       // Replace with your actual Google Drive or cloud storage link
-      window.open("https://docs.google.com/document/d/1_YOUR_CV_LINK_HERE/edit?usp=sharing", "_blank")
+      window.open("https://drive.google.com/file/d/11rU0unuPCnIEyjEemuETAoDdN6tJarNT/view?usp=sharing", "_blank")
     })
   }
 
