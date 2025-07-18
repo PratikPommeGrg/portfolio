@@ -1,4 +1,5 @@
 import { playlist } from "./playlist.js"
+import { projectsData } from "./projects.js"
 
 // Smooth scrolling and navigation
 function scrollToSection(sectionId) {
@@ -243,8 +244,8 @@ function initPhoneMockupInteractivity() {
     if (audioPlayer && !audioPlayer.paused) {
       audioPlayer.pause()
       document.getElementById("playPauseButton").innerHTML =
-        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide luc="lucide-play"><polygon points="5 3 19 12 5 21 5 3"/></svg>'
-      document.getElementById("albumArt").classList.remove("playing")
+        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play"><polygon points="5 3 19 12 5 21 5 3"/></svg>'
+      albumArtElement.classList.remove("playing")
     }
   }
 
@@ -268,7 +269,6 @@ function initPhoneMockupInteractivity() {
   const artistNameElement = document.getElementById("artistName")
   const albumArtElement = document.getElementById("albumArt")
   const musicProgressBar = document.getElementById("musicProgressBar")
-
 
   let currentSongIndex = 0
 
@@ -372,6 +372,383 @@ function initPhoneMockupInteractivity() {
   }
 }
 
+class SpinningModal {
+  constructor() {
+    this.modalOverlay = document.getElementById("projectDetailModal")
+    this.modalContent = this.modalOverlay.querySelector(".modal-content")
+    this.closeModalButton = this.modalOverlay.querySelector(".close-modal-button")
+    this.modalProjectTitle = document.getElementById("modalProjectTitle")
+    this.modalProjectType = document.getElementById("modalProjectType")
+    this.modalProjectYear = document.getElementById("modalProjectYear")
+    this.modalProjectBrief = document.getElementById("modalProjectBrief")
+    this.modalMainImage = document.getElementById("modalMainImage")
+    this.modalThumbnails = document.getElementById("modalThumbnails")
+    this.modalMyRole = document.getElementById("modalMyRole")
+    this.modalTechStack = document.getElementById("modalTechStack")
+    this.modalKeyFeatures = document.getElementById("modalKeyFeatures")
+    this.modalChallenges = document.getElementById("modalChallenges")
+    this.modalSolutions = document.getElementById("modalSolutions")
+    this.modalLinks = this.modalOverlay.querySelector(".modal-links")
+    this.modalChallengesSolutionsSection = document.getElementById("modalChallengesSolutions")
+    this.modalProjectDescription = document.getElementById("modalProjectDescription") // New: Project Description
+
+    this.currentProjectImages = []
+    this.currentImageIndex = 0
+
+    this.closeModalButton.addEventListener("click", this.close.bind(this))
+    this.modalOverlay.addEventListener("click", (e) => {
+      if (e.target === this.modalOverlay) {
+        this.close()
+      }
+    })
+    document.addEventListener("keydown", this.handleKeyDown.bind(this))
+  }
+
+  populateModal(project) {
+    this.modalProjectTitle.textContent = project.name
+    this.modalProjectType.textContent = project.type
+    this.modalProjectYear.textContent = project.year
+    this.modalProjectBrief.textContent = project.brief
+    this.modalProjectDescription.textContent = project.description // Populate new description
+
+    this.currentProjectImages = project.images
+    this.currentImageIndex = 0
+
+    this.modalThumbnails.innerHTML = ""
+    this.modalMyRole.innerHTML = ""
+    this.modalTechStack.innerHTML = ""
+    this.modalKeyFeatures.innerHTML = ""
+    this.modalLinks.innerHTML = ""
+
+    this.modalMainImage.src = project.images[0]
+    this.modalMainImage.alt = `${project.name} Screenshot 1`
+
+    project.images.forEach((imageSrc, index) => {
+      const thumb = document.createElement("img")
+      thumb.src = imageSrc
+      thumb.alt = `${project.name} Thumbnail ${index + 1}`
+      thumb.classList.add("modal-thumbnail")
+      if (index === 0) {
+        thumb.classList.add("active")
+      }
+      thumb.addEventListener("click", () => {
+        this.modalMainImage.src = imageSrc
+        this.currentImageIndex = index
+        this.modalThumbnails.querySelectorAll(".modal-thumbnail").forEach((t) => t.classList.remove("active"))
+        thumb.classList.add("active")
+      })
+      this.modalThumbnails.appendChild(thumb)
+    })
+
+    // Populate My Role
+    if (project.role && project.role.length > 0) {
+      this.modalMyRole.closest(".modal-section").style.display = "block" // Show section
+      project.role.forEach((item) => {
+        const li = document.createElement("li")
+        li.textContent = item
+        this.modalMyRole.appendChild(li)
+      })
+    } else {
+      this.modalMyRole.closest(".modal-section").style.display = "none" // Hide section
+    }
+
+    // Populate Tech Stack
+    if (project.techStack && project.techStack.length > 0) {
+      this.modalTechStack.closest(".modal-section").style.display = "block" // Show section
+      project.techStack.forEach((tech) => {
+        const span = document.createElement("span")
+        span.classList.add("tech-tag")
+        span.textContent = tech
+        this.modalTechStack.appendChild(span)
+      })
+    } else {
+      this.modalTechStack.closest(".modal-section").style.display = "none" // Hide section
+    }
+
+    // Populate Key Features
+    if (project.features && project.features.length > 0) {
+      this.modalKeyFeatures.closest(".modal-section").style.display = "block" // Show section
+      project.features.forEach((item) => {
+        const li = document.createElement("li")
+        li.textContent = item
+        this.modalKeyFeatures.appendChild(li)
+      })
+    } else {
+      this.modalKeyFeatures.closest(".modal-section").style.display = "none" // Hide section
+    }
+
+    // Populate Challenges & Solutions
+    if (project.challenges && project.solutions) {
+      this.modalChallengesSolutionsSection.style.display = "block"
+      this.modalChallenges.textContent = project.challenges
+      this.modalSolutions.textContent = project.solutions
+    } else {
+      this.modalChallengesSolutionsSection.style.display = "none"
+    }
+
+    // Populate Links
+    if (project.links && project.links.length > 0) {
+      this.modalLinks.style.display = "flex" // Show links container
+      project.links.forEach((linkData) => {
+        const a = document.createElement("a")
+        a.href = linkData.url
+        a.target = "_blank"
+        a.rel = "noopener noreferrer"
+        a.classList.add("modal-link")
+        if (linkData.label.toLowerCase().includes("github")) a.classList.add("github")
+        if (linkData.label.toLowerCase().includes("demo")) a.classList.add("demo")
+        if (linkData.label.toLowerCase().includes("download") || linkData.label.toLowerCase().includes("app"))
+          a.classList.add("download")
+        a.innerHTML = `${linkData.icon}<span>${linkData.label}</span>`
+        this.modalLinks.appendChild(a)
+      })
+    } else {
+      this.modalLinks.style.display = "none" // Hide links container
+    }
+  }
+
+  open(project, event) {
+    this.populateModal(project)
+
+    // Reset modal content styles to ensure it's ready for animation
+    this.modalContent.style.position = ""
+    this.modalContent.style.top = ""
+    this.modalContent.style.left = ""
+    this.modalContent.style.width = ""
+    this.modalContent.style.height = ""
+    this.modalContent.style.transformOrigin = ""
+
+    // Hide content initially
+    this.modalContent.classList.remove("content-visible")
+
+    // Show overlay and add zoom-in class
+    this.modalOverlay.classList.add("active")
+    document.body.style.overflow = "hidden" // Prevent body scrolling
+
+    // Force reflow to ensure initial styles are applied before animation
+    void this.modalContent.offsetWidth
+
+    // Animate to full size and position
+    this.modalContent.classList.add("modal-zoom-in")
+    this.modalContent.classList.remove("modal-zoom-out") // Ensure old animation class is removed
+
+    // After animation, show content
+    this.modalContent.addEventListener(
+      "animationend",
+      () => {
+        if (this.modalContent.classList.contains("modal-zoom-in")) {
+          this.modalContent.classList.add("content-visible") // Show content with staggered animation
+        }
+      },
+      { once: true },
+    )
+  }
+
+  close() {
+    // Hide content first with reverse staggered animation
+    this.modalContent.classList.remove("content-visible")
+
+    // Add zoom-out class for collapse animation
+    this.modalContent.classList.add("modal-zoom-out")
+    this.modalContent.classList.remove("modal-zoom-in")
+
+    // After animation, hide overlay and re-enable body scrolling
+    this.modalContent.addEventListener(
+      "animationend",
+      () => {
+        if (this.modalContent.classList.contains("modal-zoom-out")) {
+          this.modalOverlay.classList.remove("active")
+          document.body.style.overflow = "" // Re-enable body scrolling
+          // Reset modal content styles to ensure it's ready for next open
+          this.modalContent.style.position = ""
+          this.modalContent.style.top = ""
+          this.modalContent.style.left = ""
+          this.modalContent.style.width = ""
+          this.modalContent.style.height = ""
+        }
+      },
+      { once: true },
+    )
+  }
+
+  handleKeyDown(e) {
+    if (this.modalOverlay.classList.contains("active")) {
+      if (e.key === "Escape") {
+        this.close()
+      } else if (e.key === "ArrowRight") {
+        this.showNextImage()
+      } else if (e.key === "ArrowLeft") {
+        this.showPrevImage()
+      }
+    }
+  }
+
+  showNextImage() {
+    if (this.currentProjectImages.length > 1) {
+      this.currentImageIndex = (this.currentImageIndex + 1) % this.currentProjectImages.length
+      this.updateMainImageAndThumbnails()
+    }
+  }
+
+  showPrevImage() {
+    if (this.currentProjectImages.length > 1) {
+      this.currentImageIndex =
+        (this.currentImageIndex - 1 + this.currentProjectImages.length) % this.currentProjectImages.length
+      this.updateMainImageAndThumbnails()
+    }
+  }
+
+  updateMainImageAndThumbnails() {
+    this.modalMainImage.src = this.currentProjectImages[this.currentImageIndex]
+    this.modalMainImage.alt = `Project Screenshot ${this.currentImageIndex + 1}`
+
+    this.modalThumbnails.querySelectorAll(".modal-thumbnail").forEach((t, i) => {
+      t.classList.remove("active")
+      if (i === this.currentImageIndex) {
+        t.classList.add("active")
+      }
+    })
+  }
+}
+
+const spinningModal = new SpinningModal()
+
+// --- NEW FUNCTION: Dynamically Generate Project Cards ---
+function generateProjectCards() {
+  const projectsGrid = document.getElementById("projectsGrid") // Get the empty grid container
+
+  if (!projectsGrid) {
+    console.error("Projects grid container not found!")
+    return
+  }
+
+  projectsData.forEach((project) => {
+    const projectCard = document.createElement("div")
+    projectCard.classList.add("project-card", "animated-on-scroll") // Add animation class
+
+    // Create the project image section
+    const projectImage = document.createElement("div")
+    projectImage.classList.add("project-image")
+    const phonePreview = document.createElement("div")
+    phonePreview.classList.add("phone-preview")
+    const phoneScreenSmall = document.createElement("div")
+    phoneScreenSmall.classList.add("phone-screen-small")
+    const appPreview = document.createElement("img") // Changed to img for specific images
+    appPreview.classList.add("app-preview")
+    appPreview.src = project.splashImage // Use the first image as the preview
+    appPreview.alt = `${project.name} Preview`
+    appPreview.style.borderRadius = "12px" // Match phone-screen-small border-radius
+
+    phoneScreenSmall.appendChild(appPreview)
+    phonePreview.appendChild(phoneScreenSmall)
+    projectImage.appendChild(phonePreview)
+
+    // Create the project content section
+    const projectContent = document.createElement("div")
+    projectContent.classList.add("project-content")
+
+    const projectMeta = document.createElement("div")
+    projectMeta.classList.add("project-meta")
+    const projectType = document.createElement("span")
+    projectType.classList.add("project-type")
+    projectType.textContent = project.type
+    const projectYear = document.createElement("span")
+    projectYear.classList.add("project-year")
+    projectYear.textContent = project.year
+    projectMeta.appendChild(projectType)
+    projectMeta.appendChild(projectYear)
+
+    const projectTitle = document.createElement("h4")
+    projectTitle.classList.add("project-title")
+    projectTitle.textContent = project.name
+
+    const projectDescription = document.createElement("p")
+    projectDescription.classList.add("project-description")
+    // Truncate description for card view
+    const briefText = project.brief
+    projectDescription.textContent = briefText.length > 120 ? briefText.substring(0, 117) + "..." : briefText
+
+    const projectTech = document.createElement("div")
+    projectTech.classList.add("project-tech")
+    // Take only first 3 tech tags for card preview
+    project.techStack.slice(0, 3).forEach((tech) => {
+      const techTag = document.createElement("span")
+      techTag.classList.add("tech-tag")
+      techTag.textContent = tech
+      projectTech.appendChild(techTag)
+    })
+    // Add an ellipsis if there are more than 3 tech tags
+    if (project.techStack.length > 3) {
+      const ellipsisTag = document.createElement("span")
+      ellipsisTag.classList.add("tech-tag")
+      ellipsisTag.textContent = "..."
+      projectTech.appendChild(ellipsisTag)
+    }
+
+    const projectLinks = document.createElement("div")
+    projectLinks.classList.add("project-links")
+    const viewMoreLink = document.createElement("a")
+    viewMoreLink.href = "#" // Will be prevented by JS
+    viewMoreLink.classList.add("project-link")
+    viewMoreLink.setAttribute("data-project-id", project.id) // Crucial for modal
+    viewMoreLink.innerHTML = `
+      <span>Details</span>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    `
+    projectLinks.appendChild(viewMoreLink)
+
+    projectContent.appendChild(projectMeta)
+    projectContent.appendChild(projectTitle)
+    projectContent.appendChild(projectDescription)
+    projectContent.appendChild(projectTech)
+    projectContent.appendChild(projectLinks)
+
+    projectCard.appendChild(projectImage)
+    projectCard.appendChild(projectContent)
+
+    projectsGrid.appendChild(projectCard)
+  })
+
+  // After generating all cards, initialize scroll animations and modal interactivity
+  initScrollAnimations() // Re-observe new elements
+  initProjectModals() // Attach event listeners to newly created links
+}
+
+// Add some extra polish to the modal experience
+function enhanceModalExperience() {
+  document.addEventListener("keydown", (e) => {
+    if (spinningModal.modalOverlay.classList.contains("active")) {
+      // Check if modal is open
+      const thumbnails = spinningModal.modalContent.querySelectorAll(".modal-thumbnail")
+      const activeThumbnail = spinningModal.modalContent.querySelector(".modal-thumbnail.active")
+
+      if (thumbnails.length > 0 && activeThumbnail) {
+        const currentIndex = Array.from(thumbnails).indexOf(activeThumbnail)
+        let newIndex = currentIndex
+
+        if (e.key === "ArrowLeft") {
+          e.preventDefault()
+          newIndex = (currentIndex - 1 + thumbnails.length) % thumbnails.length
+        } else if (e.key === "ArrowRight") {
+          e.preventDefault()
+          newIndex = (currentIndex + 1) % thumbnails.length
+        }
+
+        if (newIndex !== currentIndex) {
+          thumbnails[newIndex].click()
+        }
+      }
+    }
+  })
+
+  const modalContent = document.querySelector(".modal-content")
+  if (modalContent) {
+    modalContent.style.scrollBehavior = "smooth"
+  }
+}
+
 // Initialize everything
 document.addEventListener("DOMContentLoaded", () => {
   // Hero text animation on load
@@ -395,6 +772,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initParallax()
   initForm()
   initPhoneMockupInteractivity() // Initialize phone mockup interactivity
+  generateProjectCards()
+  enhanceModalExperience() // Call the modal enhancement function
 
   // Update nav on scroll
   window.addEventListener("scroll", updateActiveNav)
@@ -427,15 +806,22 @@ document.addEventListener("DOMContentLoaded", () => {
       phoneMockup.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)"
     })
   }
+})
 
-  // Project cards hover effect
-  document.querySelectorAll(".project-card").forEach((card) => {
-    card.addEventListener("mouseenter", () => {
-      card.style.transform = "translateY(-8px) scale(1.01)" // Match new CSS hover
-    })
+// Event Listeners for opening and closing the modal (will be called AFTER cards are generated)
+function initProjectModals() {
+  // Event listeners for "Get to Know More" buttons
+  document.querySelectorAll(".project-link").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault() // Prevent default link behavior
+      const projectId = link.dataset.projectId // Get the project ID from data-project-id
+      const project = projectsData.find((p) => p.id === projectId)
 
-    card.addEventListener("mouseleave", () => {
-      card.style.transform = "translateY(0) scale(1)"
+      if (project) {
+        spinningModal.open(project, e) // Use the new SpinningModal instance
+      } else {
+        console.error("Project not found:", projectId)
+      }
     })
   })
-})
+}

@@ -308,128 +308,19 @@
     <div class="section-header">
       <span class="section-number">03</span>
       <h2 class="section-title">My Work</h2>
-      <p class="section-subtitle">Every project tells a story of innovation and creativity. Each project is a learning experience shaping the way I approach challenges and innovation</p>
+      <p class="section-subtitle">
+        A selection of projects that showcase my skills and passion for development.
+      </p>
     </div>
     
-    <div class="projects-grid">
-      <article class="project-card animated-on-scroll" data-project="1">
-        <div class="project-image">
-          <div class="phone-preview">
-            <div class="phone-screen-small">
-              <div class="app-preview app-1"></div>
-            </div>
-          </div>
-        </div>
-        <div class="project-content">
-          <div class="project-meta">
-            <span class="project-type">E-commerce App</span>
-            <span class="project-year">2024</span>
-          </div>
-          
-          <h3 class="project-title">ShopEasy</h3>
-          
-          <p class="project-description">
-            A modern e-commerce app with smooth animations, intuitive navigation, 
-            and seamless checkout experience.
-          </p>
-          
-          <div class="project-tech">
-            <span class="tech-tag">Flutter</span>
-            <span class="tech-tag">Firebase</span>
-            <span class="tech-tag">Stripe</span>
-          </div>
-          
-          <div class="project-links">
-            <a href="#" class="project-link">
-              <span>View Case Study</span>
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </a>
-          </div>
-        </div>
-      </article>
-      
-      <article class="project-card animated-on-scroll" data-project="2">
-        <div class="project-image">
-          <div class="phone-preview">
-            <div class="phone-screen-small">
-              <div class="app-preview app-2"></div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="project-content">
-          <div class="project-meta">
-            <span class="project-type">Productivity App</span>
-            <span class="project-year">2023</span>
-          </div>
-          
-          <h3 class="project-title">FocusFlow</h3>
-          
-          <p class="project-description">
-            A minimalist productivity app that helps users stay focused with 
-            beautiful timers and progress tracking.
-          </p>
-          
-          <div class="project-tech">
-            <span class="tech-tag">Flutter</span>
-            <span class="tech-tag">SQLite</span>
-            <span class="tech-tag">Animations</span>
-          </div>
-          
-          <div class="project-links">
-            <a href="#" class="project-link">
-              <span>View Case Study</span>
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </a>
-          </div>
-        </div>
-      </article>
-      
-      <article class="project-card animated-on-scroll" data-project="3">
-        <div class="project-image">
-          <div class="phone-preview">
-            <div class="phone-screen-small">
-              <div class="app-preview app-3"></div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="project-content">
-          <div class="project-meta">
-            <span class="project-type">Social App</span>
-            <span class="project-year">2023</span>
-          </div>
-          
-          <h3 class="project-title">ConnectLocal</h3>
-          
-          <p class="project-description">
-            A community app that connects neighbors and local businesses with 
-            real-time messaging and event sharing.
-          </p>
-          
-          <div class="project-tech">
-            <span class="tech-tag">Flutter</span>
-            <span class="tech-tag">WebSocket</span>
-            <span class="tech-tag">Maps API</span>
-          </div>
-          
-          <div class="project-links">
-            <a href="#" class="project-link">
-              <span>View Case Study</span>
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </a>
-          </div>
-        </div>
-      </article>
+    <div class="projects-container">
+      <div id="projectsGrid" class="projects-grid">
+        <!-- Your existing generateProjectCards() function will populate this -->
+      </div>
     </div>
   </div>
 </section>
+
 
 <!-- Contact Section -->
 <section id="contact" class="contact">
@@ -487,6 +378,84 @@
     </div>
   </div>
 </section>
+
+
+<!-- Project Detail Modal -->
+<div id="projectDetailModal" class="modal-overlay">
+  <div class="modal-content">
+    <button class="close-modal-button" aria-label="Close modal">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 6L6 18"/>
+        <path d="M6 6L18 18"/>
+      </svg>
+    </button>
+
+    <div class="modal-header">
+      <h2 id="modalProjectTitle" class="modal-title"></h2>
+      <div class="modal-meta">
+        <span id="modalProjectType" class="modal-type"></span>
+        <span id="modalProjectYear" class="modal-year"></span>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <div class="modal-image-gallery">
+        <img id="modalMainImage" class="modal-main-image" src="/placeholder.svg" alt="Project Main Image" />
+        <div id="modalThumbnails" class="modal-thumbnails">
+          <!-- Thumbnails will be populated by JS -->
+        </div>
+      </div>
+
+      <div class="modal-info">
+        <p id="modalProjectBrief" class="modal-brief"></p>
+        
+        <div class="modal-section">
+          <h4>Project Overview</h4>
+          <p id="modalProjectDescription"></p>
+        </div>
+
+        <div class="modal-section">
+          <h4>My Role</h4>
+          <ul id="modalMyRole" class="modal-list">
+            <!-- Role items will be populated by JS -->
+          </ul>
+        </div>
+
+        <div class="modal-section">
+          <h4>Key Features</h4>
+          <ul id="modalKeyFeatures" class="modal-list">
+            <!-- Features will be populated by JS -->
+          </ul>
+        </div>
+
+        <div class="modal-section">
+          <h4>Technologies Used</h4>
+          <div id="modalTechStack" class="modal-tech-stack">
+            <!-- Tech tags will be populated by JS -->
+          </div>
+        </div>
+
+        <div id="modalChallengesSolutions" class="modal-section">
+          <h4>Challenges & Solutions</h4>
+          <div class="modal-challenges-solutions-content">
+            <div>
+              <h5>Challenges:</h5>
+              <p id="modalChallenges"></p>
+            </div>
+            <div>
+              <h5>Solutions:</h5>
+              <p id="modalSolutions"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="modalLinks" class="modal-links">
+      <!-- Links will be populated by JS -->
+    </div>
+  </div>
+</div>
 
 <!-- Footer -->
 <footer class="footer">
