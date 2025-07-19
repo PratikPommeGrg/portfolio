@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
 </head>
 <body>
 <div class="grain"></div>
@@ -146,10 +147,7 @@
         </div>
       </div>
       <div class="about-text">
-        <!-- <p >
-          I'm a passionate <b>Mobile App Developer</b> specializing in creating seamless, high-performance Mobile Applications with <b>Flutter</b>.
-        </p>
-         -->
+  
         <p>
           Over the past 2 years, I've been crafting mobile experiences that not only 
           look beautiful but also solve real problems. I love the challenge of taking 
@@ -160,14 +158,6 @@
          My approach to building mobile experiences is driven by a desire for clarity, performance, and delivering applications designed to perfectly serve their purpose.
         </p>
         
-        <!-- <div class="skills-preview">
-
-          <div class="skill-tag">Flutter</div>
-          <div class="skill-tag">Dart</div>
-          <div class="skill-tag">Firebase</div>
-          <div class="skill-tag">UI/UX</div>
-          <div class="skill-tag">REST APIs</div>
-        </div> -->
         <div class="experience-timeline">
           <h3>My Journey</h3>
           <div class="timeline">
@@ -353,7 +343,8 @@
       </div>
       
       <div class="contact-form-container animated-on-scroll">
-        <form class="contact-form">
+        <form class="contact-form" action="https://formspree.io/f/myzpkgpd" method="POST">
+          <input type="hidden" name="_subject" value="New message from portfolio!">
           <div class="form-group">
             <label for="name">Your Name</label>
             <input type="text" id="name" name="name" required>
@@ -366,7 +357,7 @@
           
           <div class="form-group">
             <label for="project">Tell me about your project</label>
-            <textarea id="project" name="project" rows="5" placeholder="I have this amazing app idea..." required></textarea>
+            <textarea id="project" name="message" rows="5" required></textarea>
           </div>
           
           <button type="submit" class="btn-primary">
@@ -381,81 +372,64 @@
 
 
 <!-- Project Detail Modal -->
-<div id="projectDetailModal" class="modal-overlay">
-  <div class="modal-content">
-    <button class="close-modal-button" aria-label="Close modal">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M18 6L6 18"/>
-        <path d="M6 6L18 18"/>
+<div id="projectModal" class="project-modal">
+  <div class="modal-overlay"></div>
+  <div class="modal-container">
+    <button class="modal-close-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
       </svg>
     </button>
-
-    <div class="modal-header">
-      <h2 id="modalProjectTitle" class="modal-title"></h2>
-      <div class="modal-meta">
-        <span id="modalProjectType" class="modal-type"></span>
-        <span id="modalProjectYear" class="modal-year"></span>
-      </div>
-    </div>
-
-    <div class="modal-body">
-      <div class="modal-image-gallery">
-        <img id="modalMainImage" class="modal-main-image" src="/placeholder.svg" alt="Project Main Image" />
-        <div id="modalThumbnails" class="modal-thumbnails">
-          <!-- Thumbnails will be populated by JS -->
+    
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-meta">
+          <span class="modal-type"></span>
+          <span class="modal-year"></span>
         </div>
+        <h3 class="modal-title"></h3>
       </div>
-
-      <div class="modal-info">
-        <p id="modalProjectBrief" class="modal-brief"></p>
+      
+      <div class="modal-body">
+        <div class="modal-gallery">
+          <div class="main-image-container">
+            <img class="main-image" src="" alt="">
+          </div>
+          <div class="thumbnail-container"></div>
+        </div>
         
-        <div class="modal-section">
-          <h4>Project Overview</h4>
-          <p id="modalProjectDescription"></p>
-        </div>
-
-        <div class="modal-section">
-          <h4>My Role</h4>
-          <ul id="modalMyRole" class="modal-list">
-            <!-- Role items will be populated by JS -->
-          </ul>
-        </div>
-
-        <div class="modal-section">
-          <h4>Key Features</h4>
-          <ul id="modalKeyFeatures" class="modal-list">
-            <!-- Features will be populated by JS -->
-          </ul>
-        </div>
-
-        <div class="modal-section">
-          <h4>Technologies Used</h4>
-          <div id="modalTechStack" class="modal-tech-stack">
-            <!-- Tech tags will be populated by JS -->
+        <div class="modal-details">
+          <div class="modal-description"></div>
+          
+          <div class="tech-stack-container">
+            <h4>Tech Stack</h4>
+            <div class="tech-stack"></div>
           </div>
-        </div>
-
-        <div id="modalChallengesSolutions" class="modal-section">
-          <h4>Challenges & Solutions</h4>
-          <div class="modal-challenges-solutions-content">
-            <div>
-              <h5>Challenges:</h5>
-              <p id="modalChallenges"></p>
-            </div>
-            <div>
-              <h5>Solutions:</h5>
-              <p id="modalSolutions"></p>
-            </div>
+          
+          <div class="project-links">
+            <a href="#" class="project-link live-demo" target="_blank">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+              View Live
+            </a>
+            <a href="#" class="project-link github-link" target="_blank">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github">
+                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C7 1.5 6 1.5 6 1.5c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 5 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+                <path d="M9 18c-4.51 2-5-2-7-2"></path>
+              </svg>
+              View Code
+            </a>
           </div>
         </div>
       </div>
-    </div>
-
-    <div id="modalLinks" class="modal-links">
-      <!-- Links will be populated by JS -->
     </div>
   </div>
 </div>
+
 
 <!-- Footer -->
 <footer class="footer">

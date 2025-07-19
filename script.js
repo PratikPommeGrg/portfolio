@@ -126,21 +126,6 @@ const observer = new IntersectionObserver((entries) => {
           }, phoneAnimationDuration + delayBeforeWidgets)
         }
       }
-    } else {
-      // For general elements, you might want to remove 'is-visible' if they scroll out
-      // but for the phone mockup, we want it to stay animated once it's done.
-      // The 'unobserve' call above handles preventing re-animation for phone-mockup.
-      // For other elements, if you want them to re-animate on re-scroll, keep this:
-      // entry.target.classList.remove("is-visible");
-      // For skill items, reset their individual animations if they leave view and you want them to re-animate
-      // if (entry.target.classList.contains("skill-item")) {
-      //   const skillListItems = entry.target.querySelectorAll("li");
-      //   skillListItems.forEach((item) => {
-      //     item.style.animation = ""; // Clear animation property
-      //     item.style.opacity = "0";
-      //     item.style.transform = "translateX(-20px)";
-      //   });
-      // }
     }
   })
 }, observerOptions)
@@ -173,49 +158,34 @@ function initParallax() {
 }
 
 // Form handling
-function initForm() {
-  const form = document.querySelector(".contact-form")
+function initContactForm() {
+  const form = document.querySelector('.contact-form');
+  if (!form) return;
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault()
-
-    const submitBtn = form.querySelector(".btn-primary")
-    const originalText = submitBtn.querySelector("span").textContent
-
-    // Simulate form submission
-    submitBtn.querySelector("span").textContent = "Sending..."
-    submitBtn.disabled = true
-
-    fetch("http://localhost:8000/contact", {
-      // Replace with your FastAPI backend URL
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded", // For Form(...) in FastAPI
-      },
-      body: new URLSearchParams(new FormData(form)).toString(), // Convert form data to URL-encoded string
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.message) {
-          submitBtn.querySelector("span").textContent = data.message
-        } else {
-          submitBtn.querySelector("span").textContent = "Message Sent! ✨"
-        }
-        setTimeout(() => {
-          submitBtn.querySelector("span").textContent = originalText
-          submitBtn.disabled = false
-          form.reset()
-        }, 2000)
-      })
-      .catch((error) => {
-        console.error("Error:", error)
-        submitBtn.querySelector("span").textContent = "Error sending message 😔"
-        setTimeout(() => {
-          submitBtn.querySelector("span").textContent = originalText
-          submitBtn.disabled = false
-        }, 2000)
-      })
-  })
+  form.addEventListener('submit', async (e) => {
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.querySelector('span').textContent;
+    
+    // Visual feedback
+    submitBtn.disabled = true;
+    submitBtn.querySelector('span').textContent = "Sending...";
+    submitBtn.classList.add('sending');
+    
+    // For Formspree, we let it handle the submission
+    // We just provide visual feedback
+    
+    setTimeout(() => {
+      submitBtn.querySelector('span').textContent = "Sent! 🎉";
+      submitBtn.classList.remove('sending');
+      
+      // Reset after 3 seconds
+      setTimeout(() => {
+        submitBtn.querySelector('span').textContent = originalText;
+        submitBtn.disabled = false;
+      
+      }, 3000);
+    }, 1500); // Simulate network delay
+  });
 }
 
 // Phone Mockup App Demo and CV Link
@@ -372,246 +342,6 @@ function initPhoneMockupInteractivity() {
   }
 }
 
-class SpinningModal {
-  constructor() {
-    this.modalOverlay = document.getElementById("projectDetailModal")
-    this.modalContent = this.modalOverlay.querySelector(".modal-content")
-    this.closeModalButton = this.modalOverlay.querySelector(".close-modal-button")
-    this.modalProjectTitle = document.getElementById("modalProjectTitle")
-    this.modalProjectType = document.getElementById("modalProjectType")
-    this.modalProjectYear = document.getElementById("modalProjectYear")
-    this.modalProjectBrief = document.getElementById("modalProjectBrief")
-    this.modalMainImage = document.getElementById("modalMainImage")
-    this.modalThumbnails = document.getElementById("modalThumbnails")
-    this.modalMyRole = document.getElementById("modalMyRole")
-    this.modalTechStack = document.getElementById("modalTechStack")
-    this.modalKeyFeatures = document.getElementById("modalKeyFeatures")
-    this.modalChallenges = document.getElementById("modalChallenges")
-    this.modalSolutions = document.getElementById("modalSolutions")
-    this.modalLinks = this.modalOverlay.querySelector(".modal-links")
-    this.modalChallengesSolutionsSection = document.getElementById("modalChallengesSolutions")
-    this.modalProjectDescription = document.getElementById("modalProjectDescription") // New: Project Description
-
-    this.currentProjectImages = []
-    this.currentImageIndex = 0
-
-    this.closeModalButton.addEventListener("click", this.close.bind(this))
-    this.modalOverlay.addEventListener("click", (e) => {
-      if (e.target === this.modalOverlay) {
-        this.close()
-      }
-    })
-    document.addEventListener("keydown", this.handleKeyDown.bind(this))
-  }
-
-  populateModal(project) {
-    this.modalProjectTitle.textContent = project.name
-    this.modalProjectType.textContent = project.type
-    this.modalProjectYear.textContent = project.year
-    this.modalProjectBrief.textContent = project.brief
-    this.modalProjectDescription.textContent = project.description // Populate new description
-
-    this.currentProjectImages = project.images
-    this.currentImageIndex = 0
-
-    this.modalThumbnails.innerHTML = ""
-    this.modalMyRole.innerHTML = ""
-    this.modalTechStack.innerHTML = ""
-    this.modalKeyFeatures.innerHTML = ""
-    this.modalLinks.innerHTML = ""
-
-    this.modalMainImage.src = project.images[0]
-    this.modalMainImage.alt = `${project.name} Screenshot 1`
-
-    project.images.forEach((imageSrc, index) => {
-      const thumb = document.createElement("img")
-      thumb.src = imageSrc
-      thumb.alt = `${project.name} Thumbnail ${index + 1}`
-      thumb.classList.add("modal-thumbnail")
-      if (index === 0) {
-        thumb.classList.add("active")
-      }
-      thumb.addEventListener("click", () => {
-        this.modalMainImage.src = imageSrc
-        this.currentImageIndex = index
-        this.modalThumbnails.querySelectorAll(".modal-thumbnail").forEach((t) => t.classList.remove("active"))
-        thumb.classList.add("active")
-      })
-      this.modalThumbnails.appendChild(thumb)
-    })
-
-    // Populate My Role
-    if (project.role && project.role.length > 0) {
-      this.modalMyRole.closest(".modal-section").style.display = "block" // Show section
-      project.role.forEach((item) => {
-        const li = document.createElement("li")
-        li.textContent = item
-        this.modalMyRole.appendChild(li)
-      })
-    } else {
-      this.modalMyRole.closest(".modal-section").style.display = "none" // Hide section
-    }
-
-    // Populate Tech Stack
-    if (project.techStack && project.techStack.length > 0) {
-      this.modalTechStack.closest(".modal-section").style.display = "block" // Show section
-      project.techStack.forEach((tech) => {
-        const span = document.createElement("span")
-        span.classList.add("tech-tag")
-        span.textContent = tech
-        this.modalTechStack.appendChild(span)
-      })
-    } else {
-      this.modalTechStack.closest(".modal-section").style.display = "none" // Hide section
-    }
-
-    // Populate Key Features
-    if (project.features && project.features.length > 0) {
-      this.modalKeyFeatures.closest(".modal-section").style.display = "block" // Show section
-      project.features.forEach((item) => {
-        const li = document.createElement("li")
-        li.textContent = item
-        this.modalKeyFeatures.appendChild(li)
-      })
-    } else {
-      this.modalKeyFeatures.closest(".modal-section").style.display = "none" // Hide section
-    }
-
-    // Populate Challenges & Solutions
-    if (project.challenges && project.solutions) {
-      this.modalChallengesSolutionsSection.style.display = "block"
-      this.modalChallenges.textContent = project.challenges
-      this.modalSolutions.textContent = project.solutions
-    } else {
-      this.modalChallengesSolutionsSection.style.display = "none"
-    }
-
-    // Populate Links
-    if (project.links && project.links.length > 0) {
-      this.modalLinks.style.display = "flex" // Show links container
-      project.links.forEach((linkData) => {
-        const a = document.createElement("a")
-        a.href = linkData.url
-        a.target = "_blank"
-        a.rel = "noopener noreferrer"
-        a.classList.add("modal-link")
-        if (linkData.label.toLowerCase().includes("github")) a.classList.add("github")
-        if (linkData.label.toLowerCase().includes("demo")) a.classList.add("demo")
-        if (linkData.label.toLowerCase().includes("download") || linkData.label.toLowerCase().includes("app"))
-          a.classList.add("download")
-        a.innerHTML = `${linkData.icon}<span>${linkData.label}</span>`
-        this.modalLinks.appendChild(a)
-      })
-    } else {
-      this.modalLinks.style.display = "none" // Hide links container
-    }
-  }
-
-  open(project, event) {
-    this.populateModal(project)
-
-    // Reset modal content styles to ensure it's ready for animation
-    this.modalContent.style.position = ""
-    this.modalContent.style.top = ""
-    this.modalContent.style.left = ""
-    this.modalContent.style.width = ""
-    this.modalContent.style.height = ""
-    this.modalContent.style.transformOrigin = ""
-
-    // Hide content initially
-    this.modalContent.classList.remove("content-visible")
-
-    // Show overlay and add zoom-in class
-    this.modalOverlay.classList.add("active")
-    document.body.style.overflow = "hidden" // Prevent body scrolling
-
-    // Force reflow to ensure initial styles are applied before animation
-    void this.modalContent.offsetWidth
-
-    // Animate to full size and position
-    this.modalContent.classList.add("modal-zoom-in")
-    this.modalContent.classList.remove("modal-zoom-out") // Ensure old animation class is removed
-
-    // After animation, show content
-    this.modalContent.addEventListener(
-      "animationend",
-      () => {
-        if (this.modalContent.classList.contains("modal-zoom-in")) {
-          this.modalContent.classList.add("content-visible") // Show content with staggered animation
-        }
-      },
-      { once: true },
-    )
-  }
-
-  close() {
-    // Hide content first with reverse staggered animation
-    this.modalContent.classList.remove("content-visible")
-
-    // Add zoom-out class for collapse animation
-    this.modalContent.classList.add("modal-zoom-out")
-    this.modalContent.classList.remove("modal-zoom-in")
-
-    // After animation, hide overlay and re-enable body scrolling
-    this.modalContent.addEventListener(
-      "animationend",
-      () => {
-        if (this.modalContent.classList.contains("modal-zoom-out")) {
-          this.modalOverlay.classList.remove("active")
-          document.body.style.overflow = "" // Re-enable body scrolling
-          // Reset modal content styles to ensure it's ready for next open
-          this.modalContent.style.position = ""
-          this.modalContent.style.top = ""
-          this.modalContent.style.left = ""
-          this.modalContent.style.width = ""
-          this.modalContent.style.height = ""
-        }
-      },
-      { once: true },
-    )
-  }
-
-  handleKeyDown(e) {
-    if (this.modalOverlay.classList.contains("active")) {
-      if (e.key === "Escape") {
-        this.close()
-      } else if (e.key === "ArrowRight") {
-        this.showNextImage()
-      } else if (e.key === "ArrowLeft") {
-        this.showPrevImage()
-      }
-    }
-  }
-
-  showNextImage() {
-    if (this.currentProjectImages.length > 1) {
-      this.currentImageIndex = (this.currentImageIndex + 1) % this.currentProjectImages.length
-      this.updateMainImageAndThumbnails()
-    }
-  }
-
-  showPrevImage() {
-    if (this.currentProjectImages.length > 1) {
-      this.currentImageIndex =
-        (this.currentImageIndex - 1 + this.currentProjectImages.length) % this.currentProjectImages.length
-      this.updateMainImageAndThumbnails()
-    }
-  }
-
-  updateMainImageAndThumbnails() {
-    this.modalMainImage.src = this.currentProjectImages[this.currentImageIndex]
-    this.modalMainImage.alt = `Project Screenshot ${this.currentImageIndex + 1}`
-
-    this.modalThumbnails.querySelectorAll(".modal-thumbnail").forEach((t, i) => {
-      t.classList.remove("active")
-      if (i === this.currentImageIndex) {
-        t.classList.add("active")
-      }
-    })
-  }
-}
-
-const spinningModal = new SpinningModal()
 
 // --- NEW FUNCTION: Dynamically Generate Project Cards ---
 function generateProjectCards() {
@@ -713,41 +443,126 @@ function generateProjectCards() {
 
   // After generating all cards, initialize scroll animations and modal interactivity
   initScrollAnimations() // Re-observe new elements
-  initProjectModals() // Attach event listeners to newly created links
+
 }
 
-// Add some extra polish to the modal experience
-function enhanceModalExperience() {
+// Add this to your existing script.js file
+
+// Modal functionality
+function initProjectModal() {
+  const modal = document.getElementById("projectModal")
+  const closeBtn = modal.querySelector(".modal-close-btn")
+  const modalOverlay = modal.querySelector(".modal-overlay")
+  
+  // Close modal when clicking close button or overlay
+  closeBtn.addEventListener("click", closeModal)
+  modalOverlay.addEventListener("click", closeModal)
+  
+  // Close modal when pressing Escape key
   document.addEventListener("keydown", (e) => {
-    if (spinningModal.modalOverlay.classList.contains("active")) {
-      // Check if modal is open
-      const thumbnails = spinningModal.modalContent.querySelectorAll(".modal-thumbnail")
-      const activeThumbnail = spinningModal.modalContent.querySelector(".modal-thumbnail.active")
-
-      if (thumbnails.length > 0 && activeThumbnail) {
-        const currentIndex = Array.from(thumbnails).indexOf(activeThumbnail)
-        let newIndex = currentIndex
-
-        if (e.key === "ArrowLeft") {
-          e.preventDefault()
-          newIndex = (currentIndex - 1 + thumbnails.length) % thumbnails.length
-        } else if (e.key === "ArrowRight") {
-          e.preventDefault()
-          newIndex = (currentIndex + 1) % thumbnails.length
-        }
-
-        if (newIndex !== currentIndex) {
-          thumbnails[newIndex].click()
-        }
-      }
+    if (e.key === "Escape" && modal.classList.contains("active")) {
+      closeModal()
     }
   })
-
-  const modalContent = document.querySelector(".modal-content")
-  if (modalContent) {
-    modalContent.style.scrollBehavior = "smooth"
-  }
+  
+  // Set up click handlers for all "Details" buttons
+  document.querySelectorAll(".project-link[data-project-id]").forEach(button => {
+    button.addEventListener("click", (e) => {
+      e.preventDefault()
+      const projectId = button.getAttribute("data-project-id")
+      const project = projectsData.find(p => p.id === projectId)
+      if (project) {
+        openModal(project)
+      }
+    })
+  })
 }
+
+function openModal(project) {
+  const modal = document.getElementById("projectModal")
+  const modalTitle = modal.querySelector(".modal-title")
+  const modalType = modal.querySelector(".modal-type")
+  const modalYear = modal.querySelector(".modal-year")
+  const modalDescription = modal.querySelector(".modal-description")
+  const techStackContainer = modal.querySelector(".tech-stack")
+  const mainImage = modal.querySelector(".main-image")
+  const thumbnailContainer = modal.querySelector(".thumbnail-container")
+  const liveDemoLink = modal.querySelector(".live-demo")
+  const githubLink = modal.querySelector(".github-link")
+  
+  // Set basic project info
+  modalTitle.textContent = project.name
+  modalType.textContent = project.type
+  modalYear.textContent = project.year
+  modalDescription.textContent = project.description || project.brief
+  
+  // Set tech stack
+  techStackContainer.innerHTML = ""
+  project.techStack.forEach(tech => {
+    const techTag = document.createElement("span")
+    techTag.classList.add("tech-tag")
+    techTag.textContent = tech
+    techStackContainer.appendChild(techTag)
+  })
+  
+  // Set images
+  thumbnailContainer.innerHTML = ""
+  if (project.images && project.images.length > 0) {
+    mainImage.src = project.images[0]
+    mainImage.alt = `${project.name} screenshot`
+    
+    project.images.forEach((img, index) => {
+      const thumbnail = document.createElement("div")
+      thumbnail.classList.add("thumbnail")
+      if (index === 0) thumbnail.classList.add("active")
+      
+      const thumbnailImg = document.createElement("img")
+      thumbnailImg.src = img
+      thumbnailImg.alt = `${project.name} screenshot ${index + 1}`
+      
+      thumbnail.appendChild(thumbnailImg)
+      thumbnail.addEventListener("click", () => {
+        mainImage.src = img
+        modal.querySelectorAll(".thumbnail").forEach(t => t.classList.remove("active"))
+        thumbnail.classList.add("active")
+      })
+      
+      thumbnailContainer.appendChild(thumbnail)
+    })
+  } else {
+    // Fallback if no images are provided
+    mainImage.src = project.splashImage || "/assets/images/default-project.jpg"
+    mainImage.alt = `${project.name} preview`
+  }
+  
+  // Set project links
+  if (project.liveLink) {
+    liveDemoLink.href = project.liveLink
+    liveDemoLink.style.display = "flex"
+  } else {
+    liveDemoLink.style.display = "none"
+  }
+  
+  if (project.githubLink) {
+    githubLink.href = project.githubLink
+    githubLink.style.display = "flex"
+  } else {
+    githubLink.style.display = "none"
+  }
+  
+  // Show modal
+  modal.classList.add("active")
+  document.body.style.overflow = "hidden" // Prevent scrolling behind modal
+}
+
+function closeModal() {
+  const modal = document.getElementById("projectModal")
+  modal.classList.remove("active")
+  document.body.style.overflow = "auto" // Re-enable scrolling
+}
+
+
+
 
 // Initialize everything
 document.addEventListener("DOMContentLoaded", () => {
@@ -770,10 +585,10 @@ document.addEventListener("DOMContentLoaded", () => {
   updateActiveNav()
   initScrollAnimations() // This now observes phoneMockup and triggers its children's animations
   initParallax()
-  initForm()
+  initContactForm()
   initPhoneMockupInteractivity() // Initialize phone mockup interactivity
   generateProjectCards()
-  enhanceModalExperience() // Call the modal enhancement function
+    initProjectModal() // Add this line
 
   // Update nav on scroll
   window.addEventListener("scroll", updateActiveNav)
@@ -808,20 +623,3 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 })
 
-// Event Listeners for opening and closing the modal (will be called AFTER cards are generated)
-function initProjectModals() {
-  // Event listeners for "Get to Know More" buttons
-  document.querySelectorAll(".project-link").forEach((link) => {
-    link.addEventListener("click", (e) => {
-      e.preventDefault() // Prevent default link behavior
-      const projectId = link.dataset.projectId // Get the project ID from data-project-id
-      const project = projectsData.find((p) => p.id === projectId)
-
-      if (project) {
-        spinningModal.open(project, e) // Use the new SpinningModal instance
-      } else {
-        console.error("Project not found:", projectId)
-      }
-    })
-  })
-}
